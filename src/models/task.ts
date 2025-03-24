@@ -1,4 +1,4 @@
-import mongoose, { Schema, Document, Model, models, model } from 'mongoose'
+import mongoose, { Document } from 'mongoose'
 
 export interface Task {
     title: string;
