@@ -22,6 +22,7 @@ export const createTask = async(state: FormState, formData: FormData) => {
         await TaskModel.create(newTask);
     } catch (error) {
         state.error = "タスクの作成に失敗しました。";
+        console.log(error)
         return state;
     }
 
@@ -41,6 +42,7 @@ export const updateTask = async(id: string, state: FormState, formData: FormData
         await TaskModel.updateOne({_id: id}, updatedTask);
     } catch (error) {
         state.error = "タスクの更新に失敗しました。";
+        console.log(error)
         return state;
     }
 
@@ -53,6 +55,7 @@ export const deleteTask = async (id: string, state: FormState) => {
       await TaskModel.deleteOne({ _id: id });
     } catch (error) {
       state.error = 'タスクの削除に失敗しました';
+      console.log(error)
       return state;
     }
   
