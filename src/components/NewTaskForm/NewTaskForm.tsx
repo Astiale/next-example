@@ -1,7 +1,29 @@
+'use client';
+
+import { createTask, FormState } from "@/actions/task";
+import { useActionState } from "react";
+import { useFormStatus } from "react-dom";
+
 const NewTaskForm = () => {
+    const initialState:FormState = {error: ''};
+    const [state, formAction] = useActionState(createTask ,initialState);
+
+    const SubmitButtom = () => {
+        const { pending } = useFormStatus();
+        return (
+            <button type="submit" className="mt-8 w-full py-2 
+            bg-gray-800 text-white hover:bg-gray-700 rounded-md
+            text-sm font-semibold shadow-sm
+            disabled:bg-gray-400"
+            disabled={pending}>
+            Create
+        </button>
+        );
+    }
+
     return (
-        <div className="mt-10 mx-auto, w-full max-w-sm">
-            <form action="">
+        <div className="mt-10 mx-auto w-full max-w-sm">
+            <form action={formAction}>
                 <div>
                     <label htmlFor="title" className="block text-sm font-medium">
                         Title
@@ -28,12 +50,8 @@ const NewTaskForm = () => {
                         className="block mt-2 py-1.5 px-2 w-full rounded-md border-0
                     shadow-sm ring-1 ring-inset ring-red-300"/>
                 </div>
-                <button type="submit" className="mt-8 w-full py-2 
-                    bg-gray-800 text-white hover:bg-gray-700 rounded-md
-                    text-sm font-semibold shadow-sm
-                ">
-                    Create
-                </button>
+                <SubmitButtom/>
+                {state.error && <p className="mt-2 text-red-500 text-sm">{state.error}</p>}
             </form>
         </div>
     )
